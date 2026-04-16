@@ -66,6 +66,9 @@ class FaceEngine:
             os.makedirs(gallery_path)
             return 0, 0
 
+        # Utilise un détecteur local pour éviter les conflits de threads (Thread Safety)
+        local_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_alt2.xml')
+
         for item in os.listdir(gallery_path):
             path_item = os.path.join(gallery_path, item)
             if os.path.isdir(path_item):
@@ -80,9 +83,12 @@ class FaceEngine:
                     if filename.lower().endswith(('.jpg', '.jpeg', '.png')):
                         img_gray = cv2.imread(os.path.join(path_item, filename), cv2.IMREAD_GRAYSCALE)
                         if img_gray is None: continue
-                        
                         img_gray = self.apply_clahe(img_gray)
-                        detected = self.cascade.detectMultiScale(img_gray, 1.1, 5)
+                        try:
+                            detected = local_cascade.detectMultiScale(img_gray, scaleFactor=1.1, minNeighbors=5)
+                        except Exception:
+                            continue
+
                         if len(detected) > 0:
                             (x,y,w,h) = detected[0]
                             roi = cv2.resize(img_gray[y:y+h, x:x+w], (200, 200))
