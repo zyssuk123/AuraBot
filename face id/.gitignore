@@ -1,0 +1,21 @@
+# Fichiers d'environnement
+.env
+
+# Dossiers Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Dossiers d'images locaux
+galerie/
+
+# Fichiers de cache (Modèles IA)
+*.pkl
+encodings_cache.pkl
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
