@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraBot Project - Changes Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            margin: 15px 0 10px 0;
+            font-size: 1.2em;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .info-card .label {
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .branch-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .branch-list li {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .branch-list li.merged {
+            border-left-color: #28a745;
+            background: #d4edda;
+        }
+        
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .file-list li {
+            padding: 8px;
+            margin: 3px 0;
+            background: white;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        
+        .file-list li.new {
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .file-list li.modified {
+            color: #ffc107;
+            font-weight: bold;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .status-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-info {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .status-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            margin: 10px 0;
+        }
+        
+        .timestamp {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .conflict-resolution {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .docker-info {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:hover {
+            background: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>AuraBot Project Report</h1>
+            <p class="subtitle">Branch Merging & Dockerization - Complete Changes Documentation</p>
+        </div>
+        
+        <div class="content">
+            <!-- Executive Summary -->
+            <div class="section">
+                <h2>Executive Summary</h2>
+                <p>This report documents all changes made to the AuraBot project on <strong>May 14, 2026</strong>. The project has been successfully consolidated from three separate branches into a unified <strong>OMAR</strong> branch and containerized using Docker Compose for easy deployment.</p>
+                
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="label">Repository</div>
+                        <div>https://github.com/zyssuk123/AuraBot</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">Target Branch</div>
+                        <div>OMAR (new)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">Branches Merged</div>
+                        <div>3 (master, new_feature, abdel)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">Merge Conflicts</div>
+                        <div><span class="status-badge status-success">1 Resolved</span></div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">Docker Services</div>
+                        <div>2 (detection, faceid)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">New Files Added</div>
+                        <div>5 (Dockerfile, docker-compose.yml, requirements.txt, .env, .env.example)</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Branch Analysis -->
+            <div class="section">
+                <h2>Branch Analysis & Merging Strategy</h2>
+                
+                <h3>Original Branches</h3>
+                <ul class="branch-list">
+                    <li class="merged">
+                        <strong>master</strong> - Base implementation with core object detection and TTS
+                        <br><small>Files: Automatic_detector.py, README.md</small>
+                    </li>
+                    <li class="merged">
+                        <strong>new_feature</strong> - Arduino serial communication integration with distance sensing
+                        <br><small>Files: Automatic_detector.py (enhanced), README.md, yolov8n.pt</small>
+                    </li>
+                    <li class="merged">
+                        <strong>abdel</strong> - Face recognition system with cloud gallery and AI voice assistant
+                        <br><small>Files: Automatic_detector.py, README.md, face id/ directory (9 files)</small>
+                    </li>
+                </ul>
+
+                <h3>Merging Strategy</h3>
+                <p>The <strong>OMAR</strong> branch was created from <code>new_feature</code> as it contained the most advanced version of the main detection script with Arduino integration. The other branches were merged sequentially:</p>
+                
+                <table>
+                    <tr>
+                        <th>Step</th>
+                        <th>Action</th>
+                        <th>Result</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Create OMAR from new_feature</td>
+                        <td>Base with Arduino support</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Merge abdel branch</td>
+                        <td>Added face recognition module</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Merge master branch</td>
+                        <td>Conflict in README.md (resolved)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Conflict Resolution -->
+            <div class="section">
+                <h2>Conflict Resolution</h2>
+                
+                <div class="conflict-resolution">
+                    <h3>Conflict: README.md</h3>
+                    <p><strong>Branches involved:</strong> new_feature vs master</p>
+                    <p><strong>Issue:</strong> new_feature had installation instructions while master had an empty README</p>
+                    <p><strong>Resolution:</strong> Combined content from all branches into a comprehensive README with:</p>
+                    <ul>
+                        <li>Project description and features</li>
+                        <li>Installation instructions</li>
+                        <li>Docker setup guide</li>
+                        <li>Usage instructions for both modules</li>
+                        <li>Project structure documentation</li>
+                        <li>Merged branches acknowledgment</li>
+                    </ul>
+                </div>
+                
+                <div class="conflict-resolution">
+                    <h3>Automatic_detector.py - Intelligent Combination</h3>
+                    <p><strong>Note:</strong> While Git did not detect a conflict (divergent histories), the file exists in different versions across branches.</p>
+                    <p><strong>Resolution:</strong> Kept the <strong>new_feature</strong> version as it is the most advanced, featuring:</p>
+                    <ul>
+                        <li>Arduino auto-detection and serial communication</li>
+                        <li>Distance measurement integration</li>
+                        <li>Enhanced object detection with confidence thresholds</li>
+                        <li>Text-to-speech feedback</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Dockerization -->
+            <div class="section">
+                <h2>Dockerization Details</h2>
+                
+                <div class="docker-info">
+                    <h3>Docker Configuration</h3>
+                    <p>The application has been containerized using Docker Compose with the following components:</p>
+                </div>
+
+                <h3>New Files Created</h3>
+                <ul class="file-list">
+                    <li class="new">Dockerfile - Python 3.11 container with all dependencies</li>
+                    <li class="new">docker-compose.yml - Multi-service orchestration</li>
+                    <li class="new">requirements.txt - Python package dependencies</li>
+                    <li class="new">.env - Environment variables configuration</li>
+                    <li class="new">.env.example - Template for environment setup</li>
+                </ul>
+
+                <h3>Docker Services</h3>
+                <table>
+                    <tr>
+                        <th>Service</th>
+                        <th>Container Name</th>
+                        <th>Purpose</th>
+                        <th>Command</th>
+                    </tr>
+                    <tr>
+                        <td>aurabot-detection</td>
+                        <td>aurabot-detection</td>
+                        <td>Main object detection with Arduino</td>
+                        <td>python Automatic_detector.py</td>
+                    </tr>
+                    <tr>
+                        <td>aurabot-faceid</td>
+                        <td>aurabot-faceid</td>
+                        <td>Face recognition system (optional)</td>
+                        <td>python main.py</td>
+                    </tr>
+                </table>
+
+                <h3>Docker Commands</h3>
+                <div class="code-block">
+# Build and start the main detection service
+docker-compose up --build
+
+# Start only the detection service
+docker-compose up aurabot-detection
+
+# Start the face recognition service (optional)
+docker-compose --profile faceid up aurabot-faceid
+
+# Stop all services
+docker-compose down
+
+# View logs
+docker-compose logs -f
+                </div>
+
+                <h3>Environment Variables</h3>
+                <table>
+                    <tr>
+                        <th>Variable</th>
+                        <th>Description</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>DISPLAY</td>
+                        <td>X11 display for GUI</td>
+                        <td>For GUI mode</td>
+                    </tr>
+                    <tr>
+                        <td>GEMINI_API_KEY</td>
+                        <td>Google Gemini API for AI assistant</td>
+                        <td>For faceid features</td>
+                    </tr>
+                    <tr>
+                        <td>BLOB_READ_WRITE_TOKEN</td>
+                        <td>Vercel Blob storage token</td>
+                        <td>For cloud gallery</td>
+                    </tr>
+                    <tr>
+                        <td>CAMERA_DEVICE</td>
+                        <td>Camera device path</td>
+                        <td>No (default: /dev/video0)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Dependencies -->
+            <div class="section">
+                <h2>Dependencies & Requirements</h2>
+                
+                <h3>Python Packages (requirements.txt)</h3>
+                <ul class="file-list">
+                    <li>opencv-python >= 4.8.0 - Computer vision</li>
+                    <li>ultralytics >= 8.0.0 - YOLO object detection</li>
+                    <li>pyttsx3 >= 2.90 - Text-to-speech</li>
+                    <li>pyserial >= 3.5 - Arduino serial communication</li>
+                    <li>numpy >= 1.24.0 - Numerical operations</li>
+                    <li>SpeechRecognition >= 3.10.0 - Voice recognition</li>
+                    <li>sounddevice >= 0.4.6 - Audio capture</li>
+                    <li>python-dotenv >= 1.0.0 - Environment variables</li>
+                    <li>geocoder >= 1.38.0 - Location services</li>
+                    <li>requests >= 2.31.0 - HTTP requests</li>
+                    <li>customtkinter >= 5.2.0 - Modern GUI</li>
+                    <li>Pillow >= 10.0.0 - Image processing</li>
+                </ul>
+
+                <h3>System Dependencies (Dockerfile)</h3>
+                <ul>
+                    <li>libgl1-mesa-glx - OpenGL support</li>
+                    <li>libglib2.0-0 - GLib library</li>
+                    <li>libsm6, libxext6, libxrender-dev - X11 support</li>
+                    <li>libgomp1 - OpenMP support</li>
+                    <li>libportaudio2 - PortAudio for sound</li>
+                    <li>ffmpeg - Multimedia processing</li>
+                </ul>
+            </div>
+
+            <!-- Project Structure -->
+            <div class="section">
+                <h2>Final Project Structure</h2>
+                
+                <div class="code-block">
+AuraBot/
+├── Automatic_detector.py          # Main object detection (with Arduino)
+├── yolov8n.pt                     # YOLO model weights
+├── README.md                      # Comprehensive documentation
+├── requirements.txt               # Python dependencies
+├── Dockerfile                     # Container definition
+├── docker-compose.yml             # Multi-service orchestration
+├── .env                           # Environment variables
+├── .env.example                   # Environment template
+├── CHANGES_REPORT.html            # This report
+└── face id/                       # Face recognition module
+    ├── main.py                    # Face ID application entry
+    ├── face_engine.py             # Recognition engine
+    ├── audio_manager.py           # Voice & AI assistant
+    ├── cloud_gallery.py           # Cloud storage
+    ├── registration_window.py     # User registration UI
+    ├── config.py                  # Configuration settings
+    ├── encodings_cache.yml        # Face database
+    └── .gitignore                 # Git ignore rules
+                </div>
+            </div>
+
+            <!-- Changes Summary -->
+            <div class="section">
+                <h2>Complete Changes Summary</h2>
+                
+                <h3>Files Modified</h3>
+                <ul class="file-list">
+                    <li class="modified">README.md - Enhanced with comprehensive documentation</li>
+                </ul>
+
+                <h3>Files Added (New)</h3>
+                <ul class="file-list">
+                    <li class="new">requirements.txt - Python package dependencies</li>
+                    <li class="new">Dockerfile - Docker container configuration</li>
+                    <li class="new">docker-compose.yml - Service orchestration</li>
+                    <li class="new">.env - Environment configuration</li>
+                    <li class="new">.env.example - Environment template</li>
+                    <li class="new">CHANGES_REPORT.html - This documentation</li>
+                </ul>
+
+                <h3>Files Merged from Branches</h3>
+                <ul class="file-list">
+                    <li>From new_feature: Enhanced Automatic_detector.py with Arduino support</li>
+                    <li>From new_feature: yolov8n.pt model file</li>
+                    <li>From abdel: face id/ directory with 9 files</li>
+                </ul>
+            </div>
+
+            <!-- Git History -->
+            <div class="section">
+                <h2>Git Commit History</h2>
+                
+                <table>
+                    <tr>
+                        <th>Commit</th>
+                        <th>Message</th>
+                        <th>Changes</th>
+                    </tr>
+                    <tr>
+                        <td>Initial</td>
+                        <td>Base repository cloned</td>
+                        <td>master branch files</td>
+                    </tr>
+                    <tr>
+                        <td>Merge 1</td>
+                        <td>Merge abdel into OMAR</td>
+                        <td>Added face id module (9 files)</td>
+                    </tr>
+                    <tr>
+                        <td>Merge 2</td>
+                        <td>Merge master into OMAR + resolve README conflict</td>
+                        <td>Resolved README.md conflict</td>
+                    </tr>
+                    <tr>
+                        <td>Docker</td>
+                        <td>Add Docker support</td>
+                        <td>Added 5 Docker/config files</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="section">
+                <h2>Next Steps & Recommendations</h2>
+                
+                <h3>For Project Maintainer</h3>
+                <ol>
+                    <li>Push the <strong>OMAR</strong> branch to GitHub:
+                        <div class="code-block">git push origin OMAR</div>
+                    </li>
+                    <li>Set OMAR as the default branch in GitHub settings</li>
+                    <li>Add GEMINI_API_KEY and BLOB_READ_WRITE_TOKEN to .env for full functionality</li>
+                    <li>Update branch protection rules for OMAR</li>
+                </ol>
+
+                <h3>For Development</h3>
+                <ol>
+                    <li>Copy <code>.env.example</code> to <code>.env</code> and fill in API keys</li>
+                    <li>Ensure Docker Desktop is running</li>
+                    <li>Run: <code>docker-compose up --build</code></li>
+                    <li>For GUI support on Windows, install VcXsrv or similar X11 server</li>
+                </ol>
+
+                <h3>Known Limitations</h3>
+                <ul>
+                    <li>GUI applications require X11 forwarding on Windows</li>
+                    <li>Arduino serial port needs to be mapped to container</li>
+                    <li>Camera device access requires privileged mode</li>
+                    <li>Face recognition module requires separate API keys</li>
+                </ul>
+            </div>
+
+            <div class="timestamp">
+                <p>Report generated on May 14, 2026</p>
+                <p>AuraBot Project - Fablab 1C.I</p>
+                <p><strong>This report must be preserved and updated with all future changes</strong></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
