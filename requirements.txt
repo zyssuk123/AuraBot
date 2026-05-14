@@ -1,0 +1,21 @@
+# Object Detection & Computer Vision
+opencv-python>=4.8.0
+ultralytics>=8.0.0
+
+# Text-to-Speech
+pyttsx3>=2.90
+
+# Serial Communication (Arduino)
+pyserial>=3.5
+
+# Face Recognition & Audio
+numpy>=1.24.0
+SpeechRecognition>=3.10.0
+sounddevice>=0.4.6
+python-dotenv>=1.0.0
+geocoder>=1.38.0
+requests>=2.31.0
+
+# GUI Framework
+customtkinter>=5.2.0
+Pillow>=10.0.0
