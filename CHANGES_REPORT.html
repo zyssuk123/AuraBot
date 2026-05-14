@@ -250,7 +250,11 @@
                     </div>
                     <div class="info-card">
                         <div class="label">New Files Added</div>
-                        <div>5 (Dockerfile, docker-compose.yml, requirements.txt, .env, .env.example)</div>
+                        <div>6 (Dockerfile, docker-compose.yml, requirements.txt, .env, .env.example, CHANGES_REPORT.html)</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="label">Docker Build</div>
+                        <div><span class="status-badge status-success">Successful (11.1GB)</span></div>
                     </div>
                 </div>
             </div>
@@ -341,6 +345,28 @@
                 <div class="docker-info">
                     <h3>Docker Configuration</h3>
                     <p>The application has been containerized using Docker Compose with the following components:</p>
+                </div>
+
+                <h3>Build Fixes Applied</h3>
+                <div class="conflict-resolution">
+                    <h3>Issue 1: Directory Name with Space</h3>
+                    <p><strong>Problem:</strong> Docker COPY command failed with "face id/" directory due to space in name</p>
+                    <p><strong>Fix:</strong> Renamed directory from "face id" to "face_id" and updated all references</p>
+                </div>
+                <div class="conflict-resolution">
+                    <h3>Issue 2: Debian Package Compatibility</h3>
+                    <p><strong>Problem:</strong> Package 'libgl1-mesa-glx' not available in Debian Trixie (python:3.11-slim)</p>
+                    <p><strong>Fix:</strong> Switched to python:3.11-bookworm and updated package names:</p>
+                    <ul>
+                        <li>libgl1-mesa-glx → libgl1</li>
+                        <li>libxrender-dev → libxrender1</li>
+                    </ul>
+                </div>
+                <div class="conflict-resolution">
+                    <h3>Issue 3: Build Timeout</h3>
+                    <p><strong>Problem:</strong> Initial build timed out due to large PyTorch/CUDA downloads (~3GB)</p>
+                    <p><strong>Fix:</strong> Extended timeout and retried build successfully</p>
+                    <p><strong>Result:</strong> Docker image built: <code>aurabot-aurabot-detection:latest (11.1GB)</code></p>
                 </div>
 
                 <h3>New Files Created</h3>
@@ -468,7 +494,7 @@ AuraBot/
 ├── .env                           # Environment variables
 ├── .env.example                   # Environment template
 ├── CHANGES_REPORT.html            # This report
-└── face id/                       # Face recognition module
+└── face_id/                       # Face recognition module
     ├── main.py                    # Face ID application entry
     ├── face_engine.py             # Recognition engine
     ├── audio_manager.py           # Voice & AI assistant
