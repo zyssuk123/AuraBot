@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   aurabot-detection:
     build:
@@ -39,7 +37,7 @@ services:
       - /dev/video0:/dev/video0
     networks:
       - aurabot-network
-    working_dir: /app/face id
+    working_dir: /app/face_id
     command: python main.py
     profiles:
       - faceid
