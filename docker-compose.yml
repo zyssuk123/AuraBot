@@ -6,15 +6,16 @@ services:
     container_name: aurabot-detection
     privileged: true
     environment:
-      - DISPLAY=${DISPLAY:-:0}
+      - DISPLAY=host.docker.internal:0.0
       - GEMINI_API_KEY=${GEMINI_API_KEY:-}
       - BLOB_READ_WRITE_TOKEN=${BLOB_READ_WRITE_TOKEN:-}
+      - ARDUINO_ENABLED=false
+      - CAMERA_ENABLED=true
+      - GUI_ENABLED=true
     volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - ./data:/app/data
       - ./temp:/app/temp
-    devices:
-      - /dev/video0:/dev/video0
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
     networks:
       - aurabot-network
     command: python Automatic_detector.py
