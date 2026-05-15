@@ -80,11 +80,11 @@ def create_demo_frame(frame_count):
                 cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 255, 255), 2)
     
     # Status
-    cv2.putText(demo, "📷 Camera: Not Available", (50, 120),
+    cv2.putText(demo, "Camera: Not Available", (50, 120),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
-    cv2.putText(demo, "🔌 Arduino: " + ("Connected" if arduino else "Not Connected"), (50, 160),
+    cv2.putText(demo, "Arduino: " + ("Connected" if arduino else "Not Connected"), (50, 160),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0) if arduino else (0, 0, 255), 2)
-    cv2.putText(demo, "🖥️  GUI: Enabled", (50, 200),
+    cv2.putText(demo, "GUI: Enabled", (50, 200),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
     
     # Instructions
