@@ -3,652 +3,1103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraBot Project - Changes Report</title>
+    <title>AuraBot — Project Report</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #111111;
+            --bg-tertiary: #171717;
+            --bg-hover: #1a1a1a;
+            --bg-code: #0a0a0a;
+            --text-primary: #fafafa;
+            --text-secondary: #a1a1aa;
+            --text-muted: #52525b;
+            --accent-blue: #3b82f6;
+            --accent-blue-light: #60a5fa;
+            --accent-green: #22c55e;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-medium: rgba(255, 255, 255, 0.12);
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #333;
+        }
+
+        /* Layout */
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
+            padding: 0 24px;
         }
-        
+
+        /* Header */
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            text-align: center;
+            padding: 80px 0 48px;
+            border-bottom: 1px solid var(--border-subtle);
+            position: relative;
         }
-        
+
+        .header-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-medium);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-family: 'Geist Mono', monospace;
+        }
+
+        .header-badge .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
         .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .header .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
+
+        .header-subtitle {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
         }
-        
-        .content {
-            padding: 40px;
+
+        .header-meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 32px;
+            flex-wrap: wrap;
         }
-        
+
+        .header-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-family: 'Geist Mono', monospace;
+        }
+
+        .header-meta-item svg {
+            width: 16px;
+            height: 16px;
+            opacity: 0.6;
+        }
+
+        /* Section */
         .section {
-            margin-bottom: 40px;
-            padding: 25px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 5px solid #667eea;
+            padding: 64px 0;
+            border-bottom: 1px solid var(--border-subtle);
         }
-        
-        .section h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-        
-        .section h3 {
-            color: #764ba2;
-            margin: 15px 0 10px 0;
-            font-size: 1.2em;
-        }
-        
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
-        }
-        
-        .info-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        
-        .info-card .label {
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-        }
-        
-        .branch-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .branch-list li {
-            padding: 10px;
-            margin: 5px 0;
-            background: white;
-            border-radius: 5px;
-            border-left: 3px solid #667eea;
-        }
-        
-        .branch-list li.merged {
-            border-left-color: #28a745;
-            background: #d4edda;
-        }
-        
-        .file-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .file-list li {
-            padding: 8px;
-            margin: 3px 0;
-            background: white;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-        }
-        
-        .file-list li.new {
-            color: #28a745;
-            font-weight: bold;
-        }
-        
-        .file-list li.modified {
-            color: #ffc107;
-            font-weight: bold;
-        }
-        
-        .status-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: bold;
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
-        
-        .status-success {
-            background: #d4edda;
-            color: #155724;
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-subtle);
         }
-        
-        .status-info {
-            background: #d1ecf1;
-            color: #0c5460;
+
+        /* Grid */
+        .grid {
+            display: grid;
+            gap: 16px;
         }
-        
-        .status-warning {
-            background: #fff3cd;
-            color: #856404;
+
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         }
-        
+
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        }
+
+        /* Card */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-medium);
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .card-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .card-value {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin: 8px 0;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* Status */
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .status-green { background: var(--accent-green); box-shadow: 0 0 8px rgba(34, 197, 94, 0.4); }
+        .status-amber { background: var(--accent-amber); box-shadow: 0 0 8px rgba(245, 158, 11, 0.4); }
+        .status-red { background: var(--accent-red); box-shadow: 0 0 8px rgba(239, 68, 68, 0.4); }
+        .status-blue { background: var(--accent-blue); box-shadow: 0 0 8px rgba(59, 130, 246, 0.4); }
+
+        .status-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .status-row:last-child {
+            border-bottom: none;
+        }
+
+        .status-text {
+            flex: 1;
+        }
+
+        .status-label {
+            font-weight: 500;
+            font-size: 15px;
+        }
+
+        .status-detail {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 500;
+            font-family: 'Geist Mono', monospace;
+        }
+
+        .badge-green { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); border: 1px solid rgba(34, 197, 94, 0.2); }
+        .badge-amber { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.2); }
+        .badge-red { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); border: 1px solid rgba(239, 68, 68, 0.2); }
+        .badge-blue { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.2); }
+
+        /* Code Block */
         .code-block {
-            background: #2d2d2d;
-            color: #f8f8f2;
-            padding: 15px;
-            border-radius: 5px;
+            background: var(--bg-code);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .code-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.02);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .code-lang {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'Geist Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .code-copy {
+            padding: 4px 10px;
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Geist', sans-serif;
+        }
+
+        .code-copy:hover {
+            border-color: var(--border-medium);
+            color: var(--text-secondary);
+        }
+
+        .code-content {
+            padding: 16px;
             overflow-x: auto;
-            font-family: 'Courier New', monospace;
-            font-size: 0.9em;
-            margin: 10px 0;
+            font-family: 'Geist Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--text-secondary);
         }
-        
-        .timestamp {
-            text-align: center;
-            color: #6c757d;
-            font-style: italic;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #dee2e6;
+
+        .code-content .comment { color: var(--text-muted); }
+        .code-content .keyword { color: var(--accent-blue-light); }
+        .code-content .string { color: var(--accent-green); }
+        .code-content .variable { color: var(--accent-amber); }
+        .code-content .command { color: var(--text-primary); }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 32px;
         }
-        
-        .conflict-resolution {
-            background: #fff3cd;
-            border: 1px solid #ffc107;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 10px 0;
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: var(--border-subtle);
         }
-        
-        .docker-info {
-            background: #e7f3ff;
-            border: 1px solid #b3d9ff;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 10px 0;
+
+        .timeline-item {
+            position: relative;
+            padding: 20px 0 20px 24px;
+            border-bottom: 1px solid var(--border-subtle);
         }
-        
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: -26px;
+            top: 28px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border-medium);
+            z-index: 1;
+        }
+
+        .timeline-dot.active {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .timeline-title {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .timeline-meta {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'Geist Mono', monospace;
+        }
+
+        /* Table */
+        .table-container {
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            overflow-x: auto;
+        }
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            font-size: 14px;
         }
-        
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #dee2e6;
-        }
-        
+
         th {
-            background: #667eea;
-            color: white;
+            background: var(--bg-tertiary);
+            padding: 14px 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-subtle);
+            white-space: nowrap;
         }
-        
-        tr:hover {
-            background: #f5f5f5;
+
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            color: var(--text-secondary);
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* File list */
+        .file-list {
+            list-style: none;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0;
+            font-family: 'Geist Mono', monospace;
+            font-size: 13px;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .file-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .file-icon.py { background: rgba(59, 130, 246, 0.1); color: var(--accent-blue); }
+        .file-icon.txt { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); }
+        .file-icon.yml { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); }
+        .file-icon.md { background: rgba(161, 161, 170, 0.1); color: var(--text-secondary); }
+        .file-icon.html { background: rgba(239, 68, 68, 0.1); color: var(--accent-red); }
+        .file-icon.dir { background: rgba(161, 161, 170, 0.05); color: var(--text-muted); }
+
+        .file-name {
+            color: var(--text-secondary);
+        }
+
+        .file-status {
+            margin-left: auto;
+            font-size: 11px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .file-status.new { background: rgba(34, 197, 94, 0.1); color: var(--accent-green); }
+        .file-status.mod { background: rgba(245, 158, 11, 0.1); color: var(--accent-amber); }
+
+        /* Alert boxes */
+        .alert {
+            padding: 16px 20px;
+            border-radius: var(--radius-lg);
+            border: 1px solid;
+            margin: 16px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .alert-info {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: rgba(59, 130, 246, 0.15);
+        }
+
+        .alert-warn {
+            background: rgba(245, 158, 11, 0.05);
+            border-color: rgba(245, 158, 11, 0.15);
+        }
+
+        .alert-success {
+            background: rgba(34, 197, 94, 0.05);
+            border-color: rgba(34, 197, 94, 0.15);
+        }
+
+        .alert-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .alert-text {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Quick actions */
+        .actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Geist', sans-serif;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--text-secondary);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-medium);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-hover);
+            border-color: var(--border-medium);
+        }
+
+        /* Footer */
+        .footer {
+            padding: 48px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 { font-size: 32px; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .header-meta { gap: 16px; }
+            .section { padding: 40px 0; }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-in {
+            animation: fadeIn 0.5s ease forwards;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-badge">
+                <span class="dot"></span>
+                OMAR Branch Active
+            </div>
             <h1>AuraBot Project Report</h1>
-            <p class="subtitle">Branch Merging & Dockerization - Complete Changes Documentation</p>
-        </div>
-        
-        <div class="content">
-            <!-- Executive Summary -->
-            <div class="section">
-                <h2>Executive Summary</h2>
-                <p>This report documents all changes made to the AuraBot project on <strong>May 14, 2026</strong>. The project has been successfully consolidated from three separate branches into a unified <strong>OMAR</strong> branch and containerized using Docker Compose for easy deployment.</p>
-                
-                <div class="info-grid">
-                    <div class="info-card">
-                        <div class="label">Repository</div>
-                        <div>https://github.com/zyssuk123/AuraBot</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="label">Target Branch</div>
-                        <div>OMAR (new)</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="label">Branches Merged</div>
-                        <div>3 (master, new_feature, abdel)</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="label">Merge Conflicts</div>
-                        <div><span class="status-badge status-success">1 Resolved</span></div>
-                    </div>
-                    <div class="info-card">
-                        <div class="label">Docker Services</div>
-                        <div>2 (detection, faceid)</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="label">New Files Added</div>
-                        <div>6 (Dockerfile, docker-compose.yml, requirements.txt, .env, .env.example, CHANGES_REPORT.html)</div>
-                    </div>
-                    <div class="info-card">
-                        <div class="label">Docker Build</div>
-                        <div><span class="status-badge status-success">Successful (11.1GB)</span></div>
-                    </div>
+            <p class="header-subtitle">Complete documentation of branch merging, Dockerization, and Windows GUI configuration.</p>
+            <div class="header-meta">
+                <div class="header-meta-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    May 15, 2026
                 </div>
-            </div>
-
-            <!-- Branch Analysis -->
-            <div class="section">
-                <h2>Branch Analysis & Merging Strategy</h2>
-                
-                <h3>Original Branches</h3>
-                <ul class="branch-list">
-                    <li class="merged">
-                        <strong>master</strong> - Base implementation with core object detection and TTS
-                        <br><small>Files: Automatic_detector.py, README.md</small>
-                    </li>
-                    <li class="merged">
-                        <strong>new_feature</strong> - Arduino serial communication integration with distance sensing
-                        <br><small>Files: Automatic_detector.py (enhanced), README.md, yolov8n.pt</small>
-                    </li>
-                    <li class="merged">
-                        <strong>abdel</strong> - Face recognition system with cloud gallery and AI voice assistant
-                        <br><small>Files: Automatic_detector.py, README.md, face id/ directory (9 files)</small>
-                    </li>
-                </ul>
-
-                <h3>Merging Strategy</h3>
-                <p>The <strong>OMAR</strong> branch was created from <code>new_feature</code> as it contained the most advanced version of the main detection script with Arduino integration. The other branches were merged sequentially:</p>
-                
-                <table>
-                    <tr>
-                        <th>Step</th>
-                        <th>Action</th>
-                        <th>Result</th>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Create OMAR from new_feature</td>
-                        <td>Base with Arduino support</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Merge abdel branch</td>
-                        <td>Added face recognition module</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Merge master branch</td>
-                        <td>Conflict in README.md (resolved)</td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- Conflict Resolution -->
-            <div class="section">
-                <h2>Conflict Resolution</h2>
-                
-                <div class="conflict-resolution">
-                    <h3>Conflict: README.md</h3>
-                    <p><strong>Branches involved:</strong> new_feature vs master</p>
-                    <p><strong>Issue:</strong> new_feature had installation instructions while master had an empty README</p>
-                    <p><strong>Resolution:</strong> Combined content from all branches into a comprehensive README with:</p>
-                    <ul>
-                        <li>Project description and features</li>
-                        <li>Installation instructions</li>
-                        <li>Docker setup guide</li>
-                        <li>Usage instructions for both modules</li>
-                        <li>Project structure documentation</li>
-                        <li>Merged branches acknowledgment</li>
-                    </ul>
+                <div class="header-meta-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    12 commits
                 </div>
-                
-                <div class="conflict-resolution">
-                    <h3>Automatic_detector.py - Intelligent Combination</h3>
-                    <p><strong>Note:</strong> While Git did not detect a conflict (divergent histories), the file exists in different versions across branches.</p>
-                    <p><strong>Resolution:</strong> Kept the <strong>new_feature</strong> version as it is the most advanced, featuring:</p>
-                    <ul>
-                        <li>Arduino auto-detection and serial communication</li>
-                        <li>Distance measurement integration</li>
-                        <li>Enhanced object detection with confidence thresholds</li>
-                        <li>Text-to-speech feedback</li>
-                    </ul>
+                <div class="header-meta-item">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    CHANGES_REPORT.html
                 </div>
-            </div>
-
-            <!-- Dockerization -->
-            <div class="section">
-                <h2>Dockerization Details</h2>
-                
-                <div class="docker-info">
-                    <h3>Docker Configuration</h3>
-                    <p>The application has been containerized using Docker Compose with the following components:</p>
-                </div>
-
-                <h3>Build Fixes Applied</h3>
-                <div class="conflict-resolution">
-                    <h3>Issue 1: Directory Name with Space</h3>
-                    <p><strong>Problem:</strong> Docker COPY command failed with "face id/" directory due to space in name</p>
-                    <p><strong>Fix:</strong> Renamed directory from "face id" to "face_id" and updated all references</p>
-                </div>
-                <div class="conflict-resolution">
-                    <h3>Issue 2: Debian Package Compatibility</h3>
-                    <p><strong>Problem:</strong> Package 'libgl1-mesa-glx' not available in Debian Trixie (python:3.11-slim)</p>
-                    <p><strong>Fix:</strong> Switched to python:3.11-bookworm and updated package names:</p>
-                    <ul>
-                        <li>libgl1-mesa-glx → libgl1</li>
-                        <li>libxrender-dev → libxrender1</li>
-                    </ul>
-                </div>
-                <div class="conflict-resolution">
-                    <h3>Issue 3: Build Timeout</h3>
-                    <p><strong>Problem:</strong> Initial build timed out due to large PyTorch/CUDA downloads (~3GB)</p>
-                    <p><strong>Fix:</strong> Extended timeout and retried build successfully</p>
-                    <p><strong>Result:</strong> Docker image built: <code>aurabot-aurabot-detection:latest (11.1GB)</code></p>
-                </div>
-
-                <h3>New Files Created</h3>
-                <ul class="file-list">
-                    <li class="new">Dockerfile - Python 3.11 container with all dependencies</li>
-                    <li class="new">docker-compose.yml - Multi-service orchestration</li>
-                    <li class="new">requirements.txt - Python package dependencies</li>
-                    <li class="new">.env - Environment variables configuration</li>
-                    <li class="new">.env.example - Template for environment setup</li>
-                </ul>
-
-                <h3>Docker Services</h3>
-                <table>
-                    <tr>
-                        <th>Service</th>
-                        <th>Container Name</th>
-                        <th>Purpose</th>
-                        <th>Command</th>
-                    </tr>
-                    <tr>
-                        <td>aurabot-detection</td>
-                        <td>aurabot-detection</td>
-                        <td>Main object detection with Arduino</td>
-                        <td>python Automatic_detector.py</td>
-                    </tr>
-                    <tr>
-                        <td>aurabot-faceid</td>
-                        <td>aurabot-faceid</td>
-                        <td>Face recognition system (optional)</td>
-                        <td>python main.py</td>
-                    </tr>
-                </table>
-
-                <h3>Docker Commands</h3>
-                <div class="code-block">
-# Build and start the main detection service
-docker-compose up --build
-
-# Start only the detection service
-docker-compose up aurabot-detection
-
-# Start the face recognition service (optional)
-docker-compose --profile faceid up aurabot-faceid
-
-# Stop all services
-docker-compose down
-
-# View logs
-docker-compose logs -f
-                </div>
-
-                <h3>Environment Variables</h3>
-                <table>
-                    <tr>
-                        <th>Variable</th>
-                        <th>Description</th>
-                        <th>Required</th>
-                    </tr>
-                    <tr>
-                        <td>DISPLAY</td>
-                        <td>X11 display for GUI</td>
-                        <td>For GUI mode</td>
-                    </tr>
-                    <tr>
-                        <td>GEMINI_API_KEY</td>
-                        <td>Google Gemini API for AI assistant</td>
-                        <td>For faceid features</td>
-                    </tr>
-                    <tr>
-                        <td>BLOB_READ_WRITE_TOKEN</td>
-                        <td>Vercel Blob storage token</td>
-                        <td>For cloud gallery</td>
-                    </tr>
-                    <tr>
-                        <td>CAMERA_DEVICE</td>
-                        <td>Camera device path</td>
-                        <td>No (default: /dev/video0)</td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- Dependencies -->
-            <div class="section">
-                <h2>Dependencies & Requirements</h2>
-                
-                <h3>Python Packages (requirements.txt)</h3>
-                <ul class="file-list">
-                    <li>opencv-python >= 4.8.0 - Computer vision</li>
-                    <li>ultralytics >= 8.0.0 - YOLO object detection</li>
-                    <li>pyttsx3 >= 2.90 - Text-to-speech</li>
-                    <li>pyserial >= 3.5 - Arduino serial communication</li>
-                    <li>numpy >= 1.24.0 - Numerical operations</li>
-                    <li>SpeechRecognition >= 3.10.0 - Voice recognition</li>
-                    <li>sounddevice >= 0.4.6 - Audio capture</li>
-                    <li>python-dotenv >= 1.0.0 - Environment variables</li>
-                    <li>geocoder >= 1.38.0 - Location services</li>
-                    <li>requests >= 2.31.0 - HTTP requests</li>
-                    <li>customtkinter >= 5.2.0 - Modern GUI</li>
-                    <li>Pillow >= 10.0.0 - Image processing</li>
-                </ul>
-
-                <h3>System Dependencies (Dockerfile)</h3>
-                <ul>
-                    <li>libgl1-mesa-glx - OpenGL support</li>
-                    <li>libglib2.0-0 - GLib library</li>
-                    <li>libsm6, libxext6, libxrender-dev - X11 support</li>
-                    <li>libgomp1 - OpenMP support</li>
-                    <li>libportaudio2 - PortAudio for sound</li>
-                    <li>ffmpeg - Multimedia processing</li>
-                </ul>
-            </div>
-
-            <!-- Project Structure -->
-            <div class="section">
-                <h2>Final Project Structure</h2>
-                
-                <div class="code-block">
-AuraBot/
-├── Automatic_detector.py          # Main object detection (with Arduino)
-├── yolov8n.pt                     # YOLO model weights
-├── README.md                      # Comprehensive documentation
-├── requirements.txt               # Python dependencies
-├── Dockerfile                     # Container definition
-├── docker-compose.yml             # Multi-service orchestration
-├── .env                           # Environment variables
-├── .env.example                   # Environment template
-├── CHANGES_REPORT.html            # This report
-└── face_id/                       # Face recognition module
-    ├── main.py                    # Face ID application entry
-    ├── face_engine.py             # Recognition engine
-    ├── audio_manager.py           # Voice & AI assistant
-    ├── cloud_gallery.py           # Cloud storage
-    ├── registration_window.py     # User registration UI
-    ├── config.py                  # Configuration settings
-    ├── encodings_cache.yml        # Face database
-    └── .gitignore                 # Git ignore rules
-                </div>
-            </div>
-
-            <!-- Changes Summary -->
-            <div class="section">
-                <h2>Complete Changes Summary</h2>
-                
-                <h3>Files Modified</h3>
-                <ul class="file-list">
-                    <li class="modified">README.md - Enhanced with comprehensive documentation</li>
-                </ul>
-
-                <h3>Files Added (New)</h3>
-                <ul class="file-list">
-                    <li class="new">requirements.txt - Python package dependencies</li>
-                    <li class="new">Dockerfile - Docker container configuration</li>
-                    <li class="new">docker-compose.yml - Service orchestration</li>
-                    <li class="new">.env - Environment configuration</li>
-                    <li class="new">.env.example - Environment template</li>
-                    <li class="new">CHANGES_REPORT.html - This documentation</li>
-                </ul>
-
-                <h3>Files Merged from Branches</h3>
-                <ul class="file-list">
-                    <li>From new_feature: Enhanced Automatic_detector.py with Arduino support</li>
-                    <li>From new_feature: yolov8n.pt model file</li>
-                    <li>From abdel: face id/ directory with 9 files</li>
-                </ul>
-            </div>
-
-            <!-- GUI / Docker Setup -->
-            <div class="section">
-                <h2>Windows Docker GUI Setup</h2>
-                
-                <h3>Installed Software</h3>
-                <ul>
-                    <li><strong>VcXsrv X11 Server</strong> - Version 21.1.16.1 (via winget)</li>
-                    <li>Running on port 6000 with access control disabled</li>
-                </ul>
-
-                <h3>Configuration Applied</h3>
-                <div class="code-block">
-# docker-compose.yml environment:
-DISPLAY=host.docker.internal:0.0
-GUI_ENABLED=true
-CAMERA_ENABLED=true
-
-# .env settings:
-ARDUINO_ENABLED=false
-CAMERA_ENABLED=true
-GUI_ENABLED=true
-                </div>
-
-                <h3>Demo Mode</h3>
-                <p>When camera is not available in Docker, the application shows a demo window with:</p>
-                <ul>
-                    <li>Application status (Camera, Arduino, GUI)</li>
-                    <li>Instructions to enable hardware</li>
-                    <li>Live frame counter</li>
-                </ul>
-
-                <h3>Current Status</h3>
-                <div class="docker-info">
-                    <p><strong>Container:</strong> Running (aurabot-detection)</p>
-                    <p><strong>GUI:</strong> Outputting to VcXsrv on Windows desktop</p>
-                    <p><strong>Camera:</strong> Not available in Docker (demo mode active)</p>
-                    <p><strong>Arduino:</strong> Disabled</p>
-                </div>
-            </div>
-
-            <!-- Git History -->
-            <div class="section">
-                <h2>Git Commit History</h2>
-                
-                <table>
-                    <tr>
-                        <th>Commit</th>
-                        <th>Message</th>
-                        <th>Changes</th>
-                    </tr>
-                    <tr>
-                        <td>Initial</td>
-                        <td>Base repository cloned</td>
-                        <td>master branch files</td>
-                    </tr>
-                    <tr>
-                        <td>Merge 1</td>
-                        <td>Merge abdel into OMAR</td>
-                        <td>Added face id module (9 files)</td>
-                    </tr>
-                    <tr>
-                        <td>Merge 2</td>
-                        <td>Merge master into OMAR + resolve README conflict</td>
-                        <td>Resolved README.md conflict</td>
-                    </tr>
-                    <tr>
-                        <td>Docker</td>
-                        <td>Add Docker support</td>
-                        <td>Added 5 Docker/config files</td>
-                    </tr>
-                    <tr>
-                        <td>GUI</td>
-                        <td>Add Docker GUI support with VcXsrv</td>
-                        <td>Installed X11 server, updated configs, demo mode</td>
-                    </tr>
-                </table>
-            </div>
-
-            <!-- Next Steps -->
-            <div class="section">
-                <h2>Next Steps & Recommendations</h2>
-                
-                <h3>For Project Maintainer</h3>
-                <ol>
-                    <li>Push the <strong>OMAR</strong> branch to GitHub:
-                        <div class="code-block">git push origin OMAR</div>
-                    </li>
-                    <li>Set OMAR as the default branch in GitHub settings</li>
-                    <li>Add GEMINI_API_KEY and BLOB_READ_WRITE_TOKEN to .env for full functionality</li>
-                    <li>Update branch protection rules for OMAR</li>
-                </ol>
-
-                <h3>For Development (Current Setup)</h3>
-                <ol>
-                    <li><strong>GUI is working!</strong> VcXsrv X11 server installed and running</li>
-                    <li>Container outputs to Windows desktop via <code>host.docker.internal:0.0</code></li>
-                    <li>Run: <code>docker-compose up -d --build aurabot-detection</code></li>
-                    <li>View logs: <code>docker logs -f aurabot-detection</code></li>
-                    <li>Stop: <code>docker-compose down</code></li>
-                </ol>
-
-                <h3>Known Limitations</h3>
-                <ul>
-                    <li>✅ GUI working via VcXsrv X11 server</li>
-                    <li>⚠️ Camera not available in Docker on Windows (demo mode active)</li>
-                    <li>⚠️ Arduino serial port needs USB passthrough (disabled by default)</li>
-                    <li>Face recognition module requires separate API keys</li>
-                </ul>
-            </div>
-
-            <div class="timestamp">
-                <p>Report generated on May 14, 2026</p>
-                <p>AuraBot Project - Fablab 1C.I</p>
-                <p><strong>This report must be preserved and updated with all future changes</strong></p>
             </div>
         </div>
-    </div>
+    </header>
+
+    <!-- Status Dashboard -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">System Status</div>
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-label">Container</div>
+                        <span class="status-dot status-green"></span>
+                    </div>
+                    <div class="card-value">Running</div>
+                    <div class="card-desc">aurabot-detection is active</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-label">GUI Display</div>
+                        <span class="status-dot status-green"></span>
+                    </div>
+                    <div class="card-value">Active</div>
+                    <div class="card-desc">VcXsrv X11 forwarding enabled</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-label">Camera</div>
+                        <span class="status-dot status-amber"></span>
+                    </div>
+                    <div class="card-value">Demo</div>
+                    <div class="card-desc">Not available in Docker, using demo mode</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-label">Docker Image</div>
+                        <span class="status-dot status-blue"></span>
+                    </div>
+                    <div class="card-value">11.1 GB</div>
+                    <div class="card-desc">aurabot-aurabot-detection:latest</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-label">Branches Merged</div>
+                        <span class="status-dot status-blue"></span>
+                    </div>
+                    <div class="card-value">3</div>
+                    <div class="card-desc">master, new_feature, abdel into OMAR</div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-label">Commits Ahead</div>
+                        <span class="status-dot status-blue"></span>
+                    </div>
+                    <div class="card-value">12</div>
+                    <div class="card-desc">Ahead of origin/new_feature</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hardware Status -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Hardware Status</div>
+            <div class="card">
+                <div class="status-row">
+                    <span class="status-dot status-green"></span>
+                    <div class="status-text">
+                        <div class="status-label">GUI / Display</div>
+                        <div class="status-detail">VcXsrv X11 server running on port 6000, outputting to Windows desktop</div>
+                    </div>
+                    <span class="status-badge badge-green">Active</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-dot status-amber"></span>
+                    <div class="status-text">
+                        <div class="status-label">Camera / Video Capture</div>
+                        <div class="status-detail">Not accessible in Docker Desktop for Windows. Demo mode active with test frame.</div>
+                    </div>
+                    <span class="status-badge badge-amber">Demo Mode</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-dot status-red"></span>
+                    <div class="status-text">
+                        <div class="status-label">Arduino / Serial</div>
+                        <div class="status-detail">USB passthrough not configured. Set ARDUINO_ENABLED=true in .env to attempt connection.</div>
+                    </div>
+                    <span class="status-badge badge-red">Disabled</span>
+                </div>
+                <div class="status-row">
+                    <span class="status-dot status-green"></span>
+                    <div class="status-text">
+                        <div class="status-label">YOLO AI Model</div>
+                        <div class="status-detail">yolov8n.pt loaded successfully. Object detection engine ready.</div>
+                    </div>
+                    <span class="status-badge badge-green">Loaded</span>
+                </div>
+            </div>
+
+            <div class="alert alert-warn" style="margin-top: 24px;">
+                <svg class="alert-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--accent-amber);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                <div>
+                    <div class="alert-title" style="color: var(--accent-amber);">Camera Limitation on Windows</div>
+                    <div class="alert-text">Docker Desktop on Windows does not natively support USB camera passthrough. For full camera detection, run the Python script directly without Docker: <code style="background: var(--bg-tertiary); padding: 2px 6px; border-radius: 4px;">python Automatic_detector.py</code></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Branch Timeline -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Merge Timeline</div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-title">OMAR Branch Created</div>
+                    <div class="timeline-desc">Created from new_feature as the unified integration branch for all changes.</div>
+                    <div class="timeline-meta">
+                        <span>Branch</span>
+                        <span>OMAR</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-title">Merge abdel Branch</div>
+                    <div class="timeline-desc">Integrated face recognition module with 9 files including audio_manager.py, face_engine.py, and cloud gallery support.</div>
+                    <div class="timeline-meta">
+                        <span>+9 files</span>
+                        <span>face_id/</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-title">Merge master Branch</div>
+                    <div class="timeline-desc">Merged base implementation. Resolved README.md conflict by combining installation docs with comprehensive project documentation.</div>
+                    <div class="timeline-meta">
+                        <span>1 conflict</span>
+                        <span>Resolved</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-title">Docker Support Added</div>
+                    <div class="timeline-desc">Created Dockerfile, docker-compose.yml, requirements.txt, .env, and .env.example. Built image successfully (11.1GB).</div>
+                    <div class="timeline-meta">
+                        <span>+5 files</span>
+                        <span>11.1 GB image</span>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot active"></div>
+                    <div class="timeline-title">Windows GUI Integration</div>
+                    <div class="timeline-desc">Installed VcXsrv X11 server, configured docker-compose for host.docker.internal:0.0, enabled GUI and demo mode. Container displays window on Windows desktop.</div>
+                    <div class="timeline-meta">
+                        <span>VcXsrv</span>
+                        <span>X11</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Docker Configuration -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Docker Configuration</div>
+            
+            <div class="alert alert-info">
+                <svg class="alert-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--accent-blue);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div>
+                    <div class="alert-title" style="color: var(--accent-blue-light);">Quick Start</div>
+                    <div class="alert-text">The container is pre-configured for Windows GUI output. VcXsrv must be running before starting the container.</div>
+                </div>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">docker-compose.yml</span>
+                    <button class="code-copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+                </div>
+                <div class="code-content">
+<span class="comment"># Services configuration</span>
+<span class="variable">services</span>:
+  <span class="variable">aurabot-detection</span>:
+    <span class="variable">build</span>:
+      <span class="variable">context</span>: <span class="string">.</span>
+      <span class="variable">dockerfile</span>: <span class="string">Dockerfile</span>
+    <span class="variable">container_name</span>: <span class="string">aurabot-detection</span>
+    <span class="variable">privileged</span>: <span class="string">true</span>
+    <span class="variable">environment</span>:
+      - <span class="string">DISPLAY=host.docker.internal:0.0</span>
+      - <span class="string">GUI_ENABLED=true</span>
+      - <span class="string">CAMERA_ENABLED=true</span>
+      - <span class="string">ARDUINO_ENABLED=false</span>
+    <span class="variable">volumes</span>:
+      - <span class="string">./data:/app/data</span>
+      - <span class="string">./temp:/app/temp</span>
+      - <span class="string">/tmp/.X11-unix:/tmp/.X11-unix:rw</span></div>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="code-lang">bash</span>
+                    <button class="code-copy" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent)">Copy</button>
+                </div>
+                <div class="code-content">
+<span class="comment"># Start the application</span>
+<span class="command">docker-compose</span> up -d --build aurabot-detection
+
+<span class="comment"># View live logs</span>
+<span class="command">docker</span> logs -f aurabot-detection
+
+<span class="comment"># Stop the application</span>
+<span class="command">docker-compose</span> down</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Environment -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Environment Variables</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Value</th>
+                            <th>Description</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px;">DISPLAY</td>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-primary);">host.docker.internal:0.0</td>
+                            <td>X11 display server address for Windows</td>
+                            <td><span class="status-badge badge-green">Set</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px;">GUI_ENABLED</td>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--accent-green);">true</td>
+                            <td>Show OpenCV window output</td>
+                            <td><span class="status-badge badge-green">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px;">CAMERA_ENABLED</td>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--accent-green);">true</td>
+                            <td>Attempt video capture (falls back to demo)</td>
+                            <td><span class="status-badge badge-amber">Demo</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px;">ARDUINO_ENABLED</td>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--accent-red);">false</td>
+                            <td>Serial communication with Arduino board</td>
+                            <td><span class="status-badge badge-red">Off</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px;">GEMINI_API_KEY</td>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">—</td>
+                            <td>Google Gemini AI for voice assistant (optional)</td>
+                            <td><span class="status-badge badge-amber">Empty</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Structure -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Project Structure</div>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-label" style="margin-bottom: 16px;">Root Files</div>
+                    <ul class="file-list">
+                        <li class="file-item">
+                            <span class="file-icon py">PY</span>
+                            <span class="file-name">Automatic_detector.py</span>
+                            <span class="file-status mod">Modified</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon txt">PT</span>
+                            <span class="file-name">yolov8n.pt</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon txt">TXT</span>
+                            <span class="file-name">requirements.txt</span>
+                            <span class="file-status new">New</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon yml">YML</span>
+                            <span class="file-name">docker-compose.yml</span>
+                            <span class="file-status new">New</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon yml">ENV</span>
+                            <span class="file-name">.env</span>
+                            <span class="file-status new">New</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon html">HTML</span>
+                            <span class="file-name">CHANGES_REPORT.html</span>
+                            <span class="file-status new">New</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon md">MD</span>
+                            <span class="file-name">USAGE.md</span>
+                            <span class="file-status new">New</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <div class="card-label" style="margin-bottom: 16px;">face_id/ Module</div>
+                    <ul class="file-list">
+                        <li class="file-item">
+                            <span class="file-icon py">PY</span>
+                            <span class="file-name">main.py</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon py">PY</span>
+                            <span class="file-name">face_engine.py</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon py">PY</span>
+                            <span class="file-name">audio_manager.py</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon py">PY</span>
+                            <span class="file-name">cloud_gallery.py</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon py">PY</span>
+                            <span class="file-name">registration_window.py</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon py">PY</span>
+                            <span class="file-name">config.py</span>
+                        </li>
+                        <li class="file-item">
+                            <span class="file-icon yml">YML</span>
+                            <span class="file-name">encodings_cache.yml</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Git History -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Commit History</div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Commit</th>
+                            <th>Message</th>
+                            <th>Changes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">9a9103e</td>
+                            <td>Fix demo mode: replace emojis with plain text</td>
+                            <td><span class="status-badge badge-green">GUI Fix</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">03c24dd</td>
+                            <td>Update HTML report with GUI setup</td>
+                            <td><span class="status-badge badge-blue">Docs</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">c96e84d</td>
+                            <td>Add Docker GUI support with VcXsrv</td>
+                            <td><span class="status-badge badge-green">Feature</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">b93faac</td>
+                            <td>Add comprehensive USAGE.md guide</td>
+                            <td><span class="status-badge badge-blue">Docs</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">16939af</td>
+                            <td>Update HTML report with build fixes</td>
+                            <td><span class="status-badge badge-blue">Docs</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">146f585</td>
+                            <td>Update .env file</td>
+                            <td><span class="status-badge badge-amber">Config</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">915c271</td>
+                            <td>Fix directory naming and Docker configuration</td>
+                            <td><span class="status-badge badge-green">Fix</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">25bd14a</td>
+                            <td>Add comprehensive HTML report</td>
+                            <td><span class="status-badge badge-blue">Docs</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">5e9945d</td>
+                            <td>Add Docker support files</td>
+                            <td><span class="status-badge badge-green">Feature</span></td>
+                        </tr>
+                        <tr>
+                            <td style="font-family: 'Geist Mono', monospace; font-size: 13px; color: var(--text-muted);">a06299e</td>
+                            <td>Merge master + resolve README conflict</td>
+                            <td><span class="status-badge badge-green">Merge</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Steps -->
+    <section class="section">
+        <div class="container">
+            <div class="section-title">Next Steps</div>
+            <div class="grid grid-2">
+                <div class="card">
+                    <div class="card-label" style="margin-bottom: 16px;">For Maintainer</div>
+                    <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+                        <li>Push <strong>OMAR</strong> branch to GitHub: <code style="background: var(--bg-tertiary); padding: 2px 6px; border-radius: 4px; font-family: 'Geist Mono', monospace;">git push origin OMAR</code></li>
+                        <li>Set OMAR as default branch in repository settings</li>
+                        <li>Add API keys to .env for full AI features</li>
+                        <li>Configure branch protection rules</li>
+                    </ol>
+                </div>
+                <div class="card">
+                    <div class="card-label" style="margin-bottom: 16px;">For Development</div>
+                    <ol style="padding-left: 20px; color: var(--text-secondary); font-size: 14px; line-height: 2;">
+                        <li>Ensure Docker Desktop is running</li>
+                        <li>Verify VcXsrv is active (system tray icon)</li>
+                        <li>Run: <code style="background: var(--bg-tertiary); padding: 2px 6px; border-radius: 4px; font-family: 'Geist Mono', monospace;">docker-compose up -d aurabot-detection</code></li>
+                        <li>Check logs: <code style="background: var(--bg-tertiary); padding: 2px 6px; border-radius: 4px; font-family: 'Geist Mono', monospace;">docker logs -f aurabot-detection</code></li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="#" class="btn btn-primary" onclick="window.print(); return false;">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                    Print Report
+                </a>
+                <a href="https://github.com/zyssuk123/AuraBot" target="_blank" class="btn btn-secondary">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
+                    View Repository
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>AuraBot Project — Fablab 1C.I</p>
+            <p style="margin-top: 8px; color: var(--text-muted);">Report generated on May 15, 2026 · OMAR Branch</p>
+        </div>
+    </footer>
 </body>
 </html>
