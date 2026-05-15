@@ -533,6 +533,46 @@ AuraBot/
                 </ul>
             </div>
 
+            <!-- GUI / Docker Setup -->
+            <div class="section">
+                <h2>Windows Docker GUI Setup</h2>
+                
+                <h3>Installed Software</h3>
+                <ul>
+                    <li><strong>VcXsrv X11 Server</strong> - Version 21.1.16.1 (via winget)</li>
+                    <li>Running on port 6000 with access control disabled</li>
+                </ul>
+
+                <h3>Configuration Applied</h3>
+                <div class="code-block">
+# docker-compose.yml environment:
+DISPLAY=host.docker.internal:0.0
+GUI_ENABLED=true
+CAMERA_ENABLED=true
+
+# .env settings:
+ARDUINO_ENABLED=false
+CAMERA_ENABLED=true
+GUI_ENABLED=true
+                </div>
+
+                <h3>Demo Mode</h3>
+                <p>When camera is not available in Docker, the application shows a demo window with:</p>
+                <ul>
+                    <li>Application status (Camera, Arduino, GUI)</li>
+                    <li>Instructions to enable hardware</li>
+                    <li>Live frame counter</li>
+                </ul>
+
+                <h3>Current Status</h3>
+                <div class="docker-info">
+                    <p><strong>Container:</strong> Running (aurabot-detection)</p>
+                    <p><strong>GUI:</strong> Outputting to VcXsrv on Windows desktop</p>
+                    <p><strong>Camera:</strong> Not available in Docker (demo mode active)</p>
+                    <p><strong>Arduino:</strong> Disabled</p>
+                </div>
+            </div>
+
             <!-- Git History -->
             <div class="section">
                 <h2>Git Commit History</h2>
@@ -563,6 +603,11 @@ AuraBot/
                         <td>Add Docker support</td>
                         <td>Added 5 Docker/config files</td>
                     </tr>
+                    <tr>
+                        <td>GUI</td>
+                        <td>Add Docker GUI support with VcXsrv</td>
+                        <td>Installed X11 server, updated configs, demo mode</td>
+                    </tr>
                 </table>
             </div>
 
@@ -580,19 +625,20 @@ AuraBot/
                     <li>Update branch protection rules for OMAR</li>
                 </ol>
 
-                <h3>For Development</h3>
+                <h3>For Development (Current Setup)</h3>
                 <ol>
-                    <li>Copy <code>.env.example</code> to <code>.env</code> and fill in API keys</li>
-                    <li>Ensure Docker Desktop is running</li>
-                    <li>Run: <code>docker-compose up --build</code></li>
-                    <li>For GUI support on Windows, install VcXsrv or similar X11 server</li>
+                    <li><strong>GUI is working!</strong> VcXsrv X11 server installed and running</li>
+                    <li>Container outputs to Windows desktop via <code>host.docker.internal:0.0</code></li>
+                    <li>Run: <code>docker-compose up -d --build aurabot-detection</code></li>
+                    <li>View logs: <code>docker logs -f aurabot-detection</code></li>
+                    <li>Stop: <code>docker-compose down</code></li>
                 </ol>
 
                 <h3>Known Limitations</h3>
                 <ul>
-                    <li>GUI applications require X11 forwarding on Windows</li>
-                    <li>Arduino serial port needs to be mapped to container</li>
-                    <li>Camera device access requires privileged mode</li>
+                    <li>✅ GUI working via VcXsrv X11 server</li>
+                    <li>⚠️ Camera not available in Docker on Windows (demo mode active)</li>
+                    <li>⚠️ Arduino serial port needs USB passthrough (disabled by default)</li>
                     <li>Face recognition module requires separate API keys</li>
                 </ul>
             </div>
