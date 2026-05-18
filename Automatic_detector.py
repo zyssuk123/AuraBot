@@ -31,7 +31,6 @@ if ARDUINO_ENABLED:
         return None
 
     SERIAL_PORT = find_arduino_port()
-    
     if SERIAL_PORT:
         try:
             BAUD_RATE = 9600
@@ -187,12 +186,8 @@ while True:
         else:
             message = ", ".join(unique_objects)
 
-<<<<<<< HEAD
         # Add distance info to spoken message
         if distance == 300:
-=======
-        if distance == 999:
->>>>>>> d1e2634b18a9808f91558d7702d31ced96bb8803
             spoken = f"{message}, out of range"
         else:
             spoken = f"{message}, {distance} centimeters"
@@ -212,12 +207,8 @@ while True:
         cv2.putText(annotated, "Nothing detected", (20, 40),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
 
-<<<<<<< HEAD
     # Show distance on frame
     dist_text = "Out of range" if distance == 300 else f"Distance: {distance} cm"
-=======
-    dist_text = "Out of range" if distance == 999 else f"Distance: {distance} cm"
->>>>>>> d1e2634b18a9808f91558d7702d31ced96bb8803
     cv2.putText(annotated, dist_text, (20, 75),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
 
