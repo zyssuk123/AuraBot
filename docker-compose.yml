@@ -1,0 +1,48 @@
+services:
+  aurabot-detection:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aurabot-detection
+    privileged: true
+    environment:
+      - DISPLAY=host.docker.internal:0.0
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - BLOB_READ_WRITE_TOKEN=${BLOB_READ_WRITE_TOKEN:-}
+      - ARDUINO_ENABLED=false
+      - CAMERA_ENABLED=true
+      - GUI_ENABLED=true
+    volumes:
+      - ./data:/app/data
+      - ./temp:/app/temp
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    networks:
+      - aurabot-network
+    command: python Automatic_detector.py
+
+  aurabot-faceid:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aurabot-faceid
+    privileged: true
+    environment:
+      - DISPLAY=${DISPLAY:-:0}
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - BLOB_READ_WRITE_TOKEN=${BLOB_READ_WRITE_TOKEN:-}
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - ./data:/app/data
+      - ./temp:/app/temp
+    devices:
+      - /dev/video0:/dev/video0
+    networks:
+      - aurabot-network
+    working_dir: /app/face_id
+    command: python main.py
+    profiles:
+      - faceid
+
+networks:
+  aurabot-network:
+    driver: bridge
