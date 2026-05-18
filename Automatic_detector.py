@@ -96,7 +96,7 @@ while True:
             message = ", ".join(unique_objects)
 
         # Add distance info to spoken message
-        if distance == 999:
+        if distance == 300:
             spoken = f"{message}, out of range"
         else:
             spoken = f"{message}, {distance} centimeters"
@@ -117,7 +117,7 @@ while True:
                     cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
 
     # Show distance on frame
-    dist_text = "Out of range" if distance == 999 else f"Distance: {distance} cm"
+    dist_text = "Out of range" if distance == 300 else f"Distance: {distance} cm"
     cv2.putText(annotated, dist_text, (20, 75),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 0), 2)
 
